@@ -1,3 +1,11 @@
+---
+layout: post
+title: NetworkNote
+date: 2023-06-03
+tags: network
+---
+
+
 # Computer Network 计算机网络
 
 ## 1 学习计网的意义
