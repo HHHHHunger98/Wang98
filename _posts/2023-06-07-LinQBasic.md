@@ -16,7 +16,7 @@ tags: csharp
 > A query is an expression written in a specific query language that retrieves data from a data source, but there can be a variety of query language. And for different data source the developers need to learn a new query language, That is not a efficient way. So LINQ aims to solve this problem by providing a consistent model for working with data source across various kinds of data sources and formats.
 
 > In a LINQ query, you are always working with objects. You use the same basic coding patterns to query and transform data in XML documents, SQL databases, ADO.NET Datasets, .NET collections, and any other format for which a LINQ provider is available.
-
+<!--more-->
 ## Three parts of a Query Operation
 
 1. data source
