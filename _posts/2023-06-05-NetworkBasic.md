@@ -120,3 +120,95 @@ TCP/IP 总共有四层，每层都包含和负责一项特定的Functionality，
 1. 第一件事就是浏览器解析键入的**URL**，生成**HTTP**消息
 2. 真实地址查询**DNS** 域名系统（会新开一篇blog单独细说）确定服务器对应的IP 地址
 3. 获得目标IP地址后，就可以吧HTTP的传输工作交给OS中的**协议栈**
+4. 协议栈将打包好的数据交给网卡驱动程序，负责控制网卡硬件
+5. 最下面的网卡将会负责完成实际的收发操作，即网线中信号的发送和接受操作
+
+> 下图展示了 TCP/IP模型 中各个层中都有哪些协议：
+
+![InternetProtocolSuite]({{site.baseurl}}/assets/img/InternetProtocolSuite.jpg)
+
+#### 协议栈分层
+![协议栈]({{site.baseurl}}/assets/img/协议栈.jpg)
+##### 协议层作用
+协议栈在操作系统中，内部分为几个部分，分别负责不同的内容,根据上图所示，浏览器（应用程序）调用socket库，委托协议栈工作，协议栈负责HTTP的传输，为其提供导航指南。(按道理，包括传输层和网络层的工作)
+##### 协议栈工作流程
+协议栈大致分为两层：
+1. 负责收发数据的**TCP**和**UDP**协议，属于传输层协议，负责接受应用层委托的数据收发操作
+2. 负责网络包收发的**IP**协议，将上层数据切分成一块块的网络包，将网络包发送给目标的操作就是**IP**协议的工作，**IP** 协议包含两个重要的子协议：
+    1. ICMP (Internet Control Message Protocol 互联网控制消息协议)It is used to **send error messages and operational informations indicating success or failure when communicating with another IP address**
+    2. ARP (Address Resolution Protocol 地址解析协议) 前面有提到过，负责将IP地址转化对应的MAC地址，方便数据在以太网中的传输
+
+#### 协议栈之TCP
+> HTTP是基于TCP协议传输的，TCP协议是面向可靠连接的，因此常说的**三次握手建立连接** 以及 **四次分手解除连接** 都是TCP的特性
+
+##### TCP包头格式
+
+![TCP包头格式]({{site.baseurl}}/assets/img/TCP包头格式.jpg)
+
+简单概念：
+1. **源端口号 和 目标端口号**：指明具体收发方应用
+2. **序号**：指代包的序号，因为有可能做分片，为了解决包乱序的问题
+3. **确认号**：目的是确认对方是否受到包，没收到就重发，为了解决丢包问题
+4. **状态位**：为了连接的稳定，因此需要状态位反应双方状态变更
+    1. `SYN` 发起连接
+    2. `ACK` 确认回复
+    3. `RST` 重新连接
+    4. `FIN` 结束连接
+5. **窗口大小**：为了TCP流量控制，连接双方申明一个窗口，表示处理能力，即缓存大小
+
+##### TCP三次握手建立连接 和 TCP四次分手解除连接
+
+> 在HTTP数据传输之前，需要建立TCP连接，因为三次握手和四次分手大致相同，因此放在一起说明
+
+![TCP三次握手]({{site.baseurl}}/assets/img/TCP三次握手.jpg)
+![TCP四次分手]({{site.baseurl}}/assets/img/tcpclose.png)
+
+> 不管是建立还是解除连接，目的是为了保证连接双方达成一致，**都具备收发能力** 或 **都传完数据想要解除连接**
+
+##### TCP分割数据
+> 当HTTP消息过长，超过了`MSS`长度，TCP就会把消息分割成几块，而不是一次性发送所有的数据
+
+![MTU和MSS]({{site.baseurl}}/assets/img/MTU和MSS.jpg)
+
+##### TCP报文生成
+
+TCP协议中的端口：
+1. 浏览器监听端口，通常为随机生成的
+2. Web服务器监听端口，通常为默认端口号（根据协议会有不同，HTTP为80，HTTPS为443）
+
+> **So far so good，至此，TCP报文可以组装好了：**
+
+![tpc报文]({{site.baseurl}}/assets/img/tcp报文.jpg)
+
+#### 协议栈之IP
+
+![IP包格式]({{site.baseurl}}/assets/img/IP包格式.jpg)
+
+如上图所示，些许概念解释如下：
+1. 指出**源地址IP（客户端输出IP）**和**目标地址IP（DNS域名解析得到的Web服务器IP）**
+2. **协议**：指数据部分使用的是什么协议，此处为TCP协议，因为HTTP是基于TCP的，该位置为8bit，`06`十六进制，表示协议为TCP
+
+##### 源地址选择
+
+> 当客户端有很多个网卡时，源地址的填写由**路由表**决定，表示由哪个网卡发送包
+
+```shell
+$ ip route show
+```
+> What is a **Routing Table**?
+
+A routing table, or routing information base (RIB), is a **data table** stored in a **router or a network host** that lists the routes to particular network destinations, and in some cases, metrics (distances) associated with those routes. **The routing table contains information about the topology of the network immediately around it**
+
+![源IP选择]({{site.baseurl}}/assets/img/源IP选择.jpg)
+
+> Remark: the default gateway is 0.0.0.0 with mask 0.0.0.0, when all the other IP in the routing table do not match with the destination IP, then the data package will be passed to the router.
+
+##### IP报文生成
+
+> So far so good, and we generated the finial IP package:
+
+![IP包全貌]({{site.baseurl}}/assets/img/IP包全貌.jpg)
+
+#### 协议栈之MAC
+
+> 讲道理，MAC属于网络接口层，即 Link Layer，负责两点之间的传递，即同以太网内或局域网内的
