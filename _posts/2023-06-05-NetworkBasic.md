@@ -211,4 +211,67 @@ A routing table, or routing information base (RIB), is a **data table** stored i
 
 #### 协议栈之MAC
 
-> 讲道理，MAC属于网络接口层，即 Link Layer，负责两点之间的传递，即同以太网内或局域网内的
+> 讲道理，MAC属于网络接口层，即 Link Layer，负责两点之间的传递，即同以太网内或局域网内的点到点的传输，我们现在还需要在网络包前部加上MAC头部
+
+![MAC头部]({{site.baseurl}}/assets/img/MAC头部.jpg)
+
+MAC包中包含：
+1. 发送方MAC地址
+2. 接受方MAC地址
+3. 协议类型：只有两种
+    1. IP协议：0800
+    2. ARP协议：0806
+
+##### 如何确认发送方和接收方MAC地址？
+
+> 发送方：MAC地址为网卡生产时写到ROM里面的，读取该值写入到源MAC地址区域就行
+
+> 接收方：一般填写下一跳的MAC地址（网关，gateway），通过查询**routing table 路由表**得到下一条的IP地址，然后通过**ARP协议**帮助我们找到对应的MAC地址
+
+> ARP协议如何帮助我们找到对应的MAC地址？
+
+知道下一跳IP? 却不知道下一跳MAC地址？那就广播呗...
+
+`ARP`协议帮我找到下一跳的MAC地址
+
+![广播ARP确定MAC地址]({{site.baseurl}}/assets/img/广播ARP确定MAC地址.jpg)
+
+过程很简单，就是ARP协议会在以太网中以广播的形式对询问所有设备“谁知道这个IP地址？请告诉我你的MAC地址”，有相应的设备就会回应说“我的IP地址是这个，我的MAC地址是XXX”，于是就有了目标MAC地址了，MAC头部就添加完成了
+
+> ARP缓存
+
+主要作用就是避免了查询MAC地址时候的广播，没事就喊大喇叭很烦的，于是就有ARP缓存，首先会在缓存中查找对方的MAC地址，有的话就不用广播了，ARP缓存在内存空间中，一般有效期就几分钟
+
+> MAC报文
+
+So far so good, now we have generated the MAC frame
+
+![MAC报文]({{site.baseurl}}/assets/img/MAC报文.jpg)
+
+#### Interface: Network Card 网络接口层
+
+**生成了网络包数据，但他们只是数字信息，要将其发送出去只能将他们转化为电信号，网卡就负责这一工作！**
+
+> 网卡(Network Interface Card)如何传输信号？
+
+网卡的工作需要网卡驱动程序的配合
+
+- 对于将要发送出去的数据，首先会先将数据包缓存到网卡的缓存区中，然后添加上**报头和起始帧分界符**(Preamble and start frame delimiter,一般为56bit的Preamble和8bit的帧起始定界符)
+- 同时在数据末尾加上**Frame Check Sequence 帧校验序列**，一般为**32bit的CRC(Cyclic Redundancy Code 循环冗余码)**用于错误检测
+
+相关概念
+1. 起始帧分界符，start frame delimiter，是一个用来表示包起始位置的标记
+2. FCS,帧校验序列，检测包在传输过程中是否损坏
+
+然后网卡将包转化为电信号，通过网线发送出去
+
+> 补充知识 NIC 如何接收数据包
+
+1. 比特信号通过网线等媒介到达网卡，收到的信号，会以帧的形式接受
+2. 首先，FCS（CRC循环校验码）会检验包是否损坏，**如果不匹配意味着损坏，直接丢弃该包**
+3. 如果没问题，会检测目标MAC地址是否匹配，匹配则将帧头部和尾部去掉交给上层进行进一步的处理
+
+#### 交换机————送别者
+
+
+
