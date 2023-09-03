@@ -2,7 +2,7 @@
 layout: post
 title: LeetCode_Stack_Queue_Problem
 date: 2023-06-15
-tags: leetcode algorithm csharp learning
+tags: leetcode algorithm csharp learning c++
 ---
 
 This blog is the learning note of solving leetcode stack&queue related problems
@@ -216,3 +216,104 @@ public class MyStack {
     }
 }
 ```
+
+## <span style="color: blue;"> 20. Valid Parentheses 有效括号 </span>
+
+### <span style="color: blue;"> Problem Description 问题描述 </span>
+
+> Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+1. Open brackets must be closed by the same type of brackets.
+2. Open brackets must be closed in the correct order.
+3. Every close bracket has a corresponding open bracket of the same type.
+
+
+### <span style="color: blue;"> 例子 </span>
+```
+Example 1:
+    Input: s = "()" Output: true
+Example 2:
+    Input: s = "()[]{}" Output: true
+Example 3:
+    Input: s = "(]" Output: false
+```
+
+> C++ 实现 快来看看我写的丑陋的代码😄
+
+```cpp
+#include <string>
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+class Solution {
+
+    public:
+        static bool isValid(string s) {
+
+            stack<char> checker; // declare an empty stack
+            for (int i = 0; i < s.size(); i++)
+            {
+                if (s[i] == '(' || s[i] == '[' || s[i] == '{')
+                {
+                    checker.push(s[i]);
+                }
+
+                if (s[i] == ')' || s[i] == ']' || s[i] == '}')
+                {
+                    if (!checker.empty())
+                    {
+                        if (checker.top() == '(' && s[i] == ')')
+                        {
+                            checker.pop();
+                        }else if (checker.top() == '[' && s[i] == ']')
+                        {
+                            checker.pop();
+                        }else if (checker.top() == '{' && s[i] == '}')
+                        {
+                            checker.pop();
+                        }
+                        else return false;
+                    }
+                    else{
+                        return false;
+                    } 
+                }
+            }
+            
+            return checker.empty(); 
+        }
+};
+
+int main() {
+
+    string s = "(])";
+    cout << Solution::isValid(s);
+    return 0;
+}
+```
+> 看看人家优雅的代码
+```cpp 
+class Solution {
+public:
+    bool isValid(string s) {
+        if (s.size() % 2 != 0) return false; // 如果s的长度为奇数，一定不符合要求
+        stack<char> st;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(') st.push(')');
+            else if (s[i] == '{') st.push('}');
+            else if (s[i] == '[') st.push(']');
+            // 第三种情况：遍历字符串匹配的过程中，栈已经为空了，没有匹配的字符了，说明右括号没有找到对应的左括号 return false
+            // 第二种情况：遍历字符串匹配的过程中，发现栈里没有我们要匹配的字符。所以return false
+            else if (st.empty() || st.top() != s[i]) return false;
+            else st.pop(); // st.top() 与 s[i]相等，栈弹出元素
+        }
+        // 第一种情况：此时我们已经遍历完了字符串，但是栈不为空，说明有相应的左括号没有右括号来匹配，所以return false，否则就return true
+        return st.empty();
+    }
+};
+```
+时间和空间复杂度都是: O(n);
