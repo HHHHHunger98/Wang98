@@ -2,7 +2,7 @@
 layout: post
 title: LeetCode_Stack_Queue_Problem
 date: 2023-06-15
-tags: leetcode algorithm csharp learning c++
+tags: leetcode algorithm csharp learning cpp
 ---
 
 This blog is the learning note of solving leetcode stack&queue related problems
