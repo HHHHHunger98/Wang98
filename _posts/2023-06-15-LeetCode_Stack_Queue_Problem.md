@@ -317,3 +317,134 @@ public:
 };
 ```
 时间和空间复杂度都是: O(n);
+
+## <span style="color: blue;"> 150. Evaluate Reverse Polish Notation 逆波兰表达式求值 </span>
+
+### <span style="color: blue;"> Problem Description 问题描述 </span>
+
+输入为tokens的数组，里面是一个表达式的逆波兰形式，输出为该表达式的结果
+
+### <span style="color: blue;"> 例子 </span>
+
+```
+Example 1:
+
+Input: tokens = ["2","1","+","3","*"]
+Output: 9
+Explanation: ((2 + 1) * 3) = 9
+
+Example 2:
+
+Input: tokens = ["4","13","5","/","+"]
+Output: 6
+Explanation: (4 + (13 / 5)) = 6
+
+Example 3:
+
+Input: tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+Output: 22
+Explanation: ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
+= ((10 * (6 / (12 * -11))) + 17) + 5
+= ((10 * (6 / -132)) + 17) + 5
+= ((10 * 0) + 17) + 5
+= (0 + 17) + 5
+= 17 + 5
+= 22
+
+```
+
+### <span style="color: blue;"> 解题思路 </span>
+
+如果利用栈来实现就会变得很简单，遍历tokens数组，碰到数字就压栈，碰到运算符就出栈栈顶的两个数字，并将运算结果压栈
+
+> C++ 实现 快来看看我写的丑陋的代码😄
+
+remarks: 简单说明一下，以下代码就是简单暴力的解决问题，可以优化，比如优化一下分支情况，优化一下类型转化，太多类型转换有点费时间和资源
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <stack>
+
+using namespace std;
+
+class Solution {
+
+    public:
+        static int evalRPN (vector<string>& tokens) {
+
+            stack<string> calculator;
+            for (int i = 0; i < tokens.size(); i++)
+            {
+                if (tokens[i] == "+" || tokens[i] == "-" || tokens[i] == "*" || tokens[i] == "/")
+                {
+                    int right = stoi(calculator.top());
+                    calculator.pop();
+                    int left = stoi(calculator.top());
+                    calculator.pop();
+                    if (tokens[i] == "+")
+                    {
+                        calculator.push(to_string(left + right));
+                    }else if (tokens[i] == "-")
+                    {
+                        calculator.push(to_string(left - right));
+                    }else if (tokens[i] == "*")
+                    {
+                        calculator.push(to_string(left * right));
+                    }else if (tokens[i] == "/")
+                    {
+                        calculator.push(to_string(left / right));
+                    }
+                }
+                else {
+                    calculator.push(tokens[i]);
+                }
+            }
+            return stoi(calculator.top());
+        }
+};
+int main () {
+
+    vector<string> tokens = {"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
+    cout << Solution::evalRPN(tokens);
+    return 0;
+}
+```
+
+- 时间复杂度: O(n)
+- 空间复杂度: O(n)
+
+## <span style="color: blue;"> 239. Sliding Window Maximum 滑动窗口最大值 </span>
+
+### <span style="color: blue;"> Problem Description 问题描述 </span>
+
+给一个数组，以及一个大小为k的滑动窗口，窗口从左到右步长为1进行滑动，输出为窗口中最大值序列
+
+### <span style="color: blue;"> 例子 </span>
+
+```
+Example 1:
+
+Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+Output: [3,3,5,5,6,7]
+Explanation: 
+Window position                Max
+---------------               -----
+[1  3  -1] -3  5  3  6  7       3
+ 1 [3  -1  -3] 5  3  6  7       3
+ 1  3 [-1  -3  5] 3  6  7       5
+ 1  3  -1 [-3  5  3] 6  7       5
+ 1  3  -1  -3 [5  3  6] 7       6
+ 1  3  -1  -3  5 [3  6  7]      7
+
+Example 2:
+
+Input: nums = [1], k = 1
+Output: [1]
+```
+
+### <span style="color: blue;"> 解题思路 </span>
+
+按滑动窗口大小遍历数组，每次比较滑窗中最新输入的值和上一个位置时的最大值大小，保留大的以便下次比较
+

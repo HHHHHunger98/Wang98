@@ -117,6 +117,13 @@ size of fourth: 2
 */
 ```
 
+### <span style="color: blue;">Stack的接口</span>
+
+|member fucntion|Description|
+|--|--|
+|front|Returns a reference to the next element in the queue. 返回队首元素|
+|back|Returns a reference to the last element in the queue. 返回队尾元素|
+
 ## <span style="color: blue;">总结</span>
 
 简单总结就是，STL提供了队列和栈的实现，queue和stack，但只能使用特定接口，不能遍历，且没有迭代器，同时the underlying container can be specified. 想要理解他们，就要先学好底层的容器，比如 list, deque 和 vector 等
