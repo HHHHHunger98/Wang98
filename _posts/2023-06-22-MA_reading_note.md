@@ -432,3 +432,4 @@ DC的部分，其实就是反馈控制，分布式控制器，distributed contro
     大多数的MPC 主要是集中式的计算模式，收集所有信息之后在计算预测结果，在车队系统中就有些不一样，毕竟局限性以及时效性在那摆着，集中式的计算模式不适合，需要更高效的模型，因此，大部分研究都是考虑相邻车辆的信息来进行预测分析，比如ACC, adaptive cruise control:q
 
     
+![equation]({{site.baseurl}}/assets/img/equation.jpg)
