@@ -446,5 +446,109 @@ Output: [1]
 
 ### <span style="color: blue;"> 解题思路 </span>
 
-按滑动窗口大小遍历数组，每次比较滑窗中最新输入的值和上一个位置时的最大值大小，保留大的以便下次比较
+1. 暴力解法，时间复杂度为O(n*k)，每次滑窗移动时遍历滑窗，找到最大值
+   
+2. 特别解法，简单来说就是要维护一个单调队列，为什么这么说，因为我们只需要找到滑动窗口中最大的值就行，没有必要维护所有的值，因此我们可以设计一个这样的单调队列，简单的接口就是：
+```cpp
+void pop(int value){
+    //当队首的元素等于将要去除的值时，就pop,否则不进行操作
+}
+void push(int value){
+    //比较队尾的元素和入队元素，如果队尾元素小于入队元素，就将队尾元素pop_back()，直到队尾元素大于入队元素或者队列为空时，再加入入队元素
+}
+```
+因为nums[]数组中的每个元素最多也就被 push_back 和 pop_back 各一次，时间复杂度: O(n)，空间复杂度: O(k)
+
+参考：<herf>https://github.com/youngyangyang04/leetcode-master/blob/master/problems/0239.%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC.md</herf>
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+
+using namespace std;
+class MyQue {
+    public:
+        deque<int> myque;
+        
+        void pop (int value) {
+            if (!myque.empty() && value == myque.front())
+            {
+                myque.pop_front();
+            }
+        }
+
+        void push (int value) {
+            while (!myque.empty() && myque.back() < value)
+            {
+                myque.pop_back();
+            }
+            myque.push_back(value);
+        }
+
+        int front () {
+            return myque.front();
+        }
+};
+class Solution {
+    public:
+        static vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+            MyQue slidMax;
+            vector<int> result;
+
+            for (int i = 0; i < k; i++)
+            {
+                slidMax.push(nums[i]);
+            }
+
+            result.push_back(slidMax.front());
+
+            for (int i = k; i < nums.size(); i++)
+            {
+                slidMax.pop(nums[i-k]);
+                slidMax.push(nums[i]);
+                result.push_back(slidMax.front());
+            }
+
+            return result;
+        }
+};
+
+int main () {
+
+    vector<int> nums = {1,3,1,2,0,5};
+    int k = 3;
+
+    vector<int> result = Solution::maxSlidingWindow(nums, k);
+    for (int i = 0; i < result.size(); i++)
+    {
+        cout << result[i];
+    }
+    
+    return 0;
+}
+```
+
+## <span style="color: blue;"> 347. Top K Frequent Elements Top k 个高频元素 </span>
+
+### <span style="color: blue;"> Problem Description 问题描述 </span>
+
+给一个数组，返回出现最多的前k个元素的数组
+
+### <span style="color: blue;"> 例子 </span>
+
+```
+Example 1:
+
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+
+Example 2:
+
+Input: nums = [1], k = 1
+Output: [1]
+```
+
+### <span style="color: blue;"> Solution 解题思路 </span>
 
