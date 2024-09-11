@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Cpp_Stack_Queue
+title: Cpp_fstream
 date: 2024-09-03
 tags: learning cpp
 ---
