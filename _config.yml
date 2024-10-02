@@ -4,6 +4,5 @@ description: My personal blog for study and life.
 google_analytics:
 theme: jekyll-theme-minimal
 excerpt_separator: <!--more-->
-permalink: /Wang98/
 # Build settings
 markdown: kramdown
