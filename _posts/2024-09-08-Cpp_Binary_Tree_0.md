@@ -1,12 +1,13 @@
 ---
 layout: post
-title: Cpp_Binary_Tree
+usemathjax: true
+title: Binary Tree in C++(0. What you need to know about BT)
 date: 2024-09-08
 tags: learning cpp algorithm
 ---
 
 <!--# <span style="color: blue;"></span>-->
-## <span style="color: blue;">C++: Binary Tree</span>
+## <span style="color: blue;">All you need to know about Binary Tree</span>
 > Focus of binary tree problems
 
 1. Tree traversal
@@ -16,7 +17,7 @@ tags: learning cpp algorithm
 5. Common ancestor
 6. Search tree modifications and operations
 
-In this blog, the problems related to binary tree will be discussed.
+To know about BT, following points should be mentioned.
 <!--more-->
 ## <span style="color: blue;">Binary Tree Types</span>
 
@@ -61,7 +62,8 @@ struct TreeNode{
 2. Sequential storage: using the index of array to indicate the relation. If the index of a node is ```i```, then its children will be ```left: i*2 + 1, right: i*2 + 2```
 
     ![BTstorage1]({{site.baseurl}}/assets/img/btstorage1.png)
-    ![BTstorage2]({{site.baseurl}}/assets/img/btstorge2.png)
+
+    ![BTstorage2]({{site.baseurl}}/assets/img/btstorage2.png)
 
 ## <span style="color: blue;">Tree Traversal</span>
 
@@ -72,57 +74,24 @@ Two main traversals:
 Two ways for achieving traversal: **Recursion** and **Iteration**
 - Recursion: let the function call itself, to decompositing the problem.
 - Iteration: execute the code in a loop, to solve the problem by repeating operation.
-  
-The visit order is processed recursively.
-1. Pre-order: visit the root first, then go to left child and right child respecitively.
-2. Post-order: fist visit recursively the current node's left child, and then go to the right child, at the end visit the current node.
-3. In-order: first visit the left child, and then go to the current node, at the end visit the left child.
 
-### Methodology For Tree Traversal
+> For DFT, the often used visit orders are:
 
-#### Recursion
+1. **Pre-order**: visit the root first, then go to left child and right child respecitively.
+2. **Post-order**: fist visit recursively the current node's left child, and then go to the right child, at the end visit the current node.
+3. **In-order**: first visit the left child, and then go to the current node, at the end visit the left child.
 
-> Three elements for recursively traverse the tree:
-1. Parameters and the return value
-   What parameters should be handled, what tpye of value should be returned to previous recursion.
-2. Loop exit conditon
-    Sometimes we may encounter problems like stack overflow, normally it's because of an inappropriate stop condition.
-3. Operation to be executed in one recursion
-    Specify the operation for each recursion.
+The above visiting orders can be implemented in a recursive way or in an iterative way.
 
-> Preorder Traversal
+> For BFT, the **Level Order Traversal** is often used: All nodes in the same level are visited before going to next level. Normally, the level order traversal is implemented in an iterative way.
 
-```cpp
-// as we want to print out all the value of the node we visited in a preorder form, the result should be added into vector<int>.
-void preTree(vector<int> &res, TreeNode *root) {
-    // exit condition, when the current node is null, then we return.
-    if (root == NULL)
-    {
-        return;
-    }else {
-        // operation for each recursion.
-        res.push_back(root->val);
-        preTree(res, root->left);
-        preTree(res, root->right);
-    }
-}
+## <span style="color: blue;">Summary</span>
 
-vector<int> preorderTraversal(TreeNode* root) {
-    vector<int> res;
-    preTree(res, root);
-    return res;
-}
-```
+This blog briefly discussed about:
 
-> Postorder Traversal
+1. the binary tree types
+2. how to define a binary tree data structure in C++.
+3. how to traverse a binary tree.
 
-Postorder traversal is just a little bit different from the preorder. We traverse first the whole tree util the leaf node. And then record the value.
-
-```cpp
-...
-        postTree(cur->left, res);
-        postTree(cur->right, res);
-        res.push_back(cur->val);
-...
-
-```
+The practical implementation of BT traversal will be discussed in 
+[BinaryTreeinC++(1.RecusiveTraversal)]({% post_url 2024-09-18-Cpp_Binary_Tree_1 %})

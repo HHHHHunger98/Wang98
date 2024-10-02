@@ -1,5 +1,6 @@
 ---
 layout: post
+usemathjax: true
 title: NetworkBasic
 date: 2023-06-03
 tags: network

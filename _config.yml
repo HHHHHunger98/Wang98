@@ -4,3 +4,4 @@ description: My personal blog for study and life.
 google_analytics:
 theme: jekyll-theme-minimal
 excerpt_separator: <!--more-->
+markdown: kramdown

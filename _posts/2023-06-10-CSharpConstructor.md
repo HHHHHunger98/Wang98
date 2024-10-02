@@ -1,5 +1,6 @@
 ---
 layout: post
+usemathjax: true
 title: CSharpConstructor
 date: 2023-06-10
 tags: csharp learning

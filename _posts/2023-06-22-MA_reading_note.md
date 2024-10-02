@@ -1,5 +1,6 @@
 ---
 layout: post
+usemathjax: true
 title: MA_reading_note
 date: 2023-06-22
 tags: learning papers MA
