@@ -3,6 +3,7 @@ logo: /assets/img/logo.png
 description: My personal blog for study and life. 
 google_analytics:
 theme: jekyll-theme-minimal
+permalink: /Wang98/
 excerpt_separator: <!--more-->
 # Build settings
 markdown: kramdown

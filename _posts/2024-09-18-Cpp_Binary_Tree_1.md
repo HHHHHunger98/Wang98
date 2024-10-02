@@ -8,7 +8,7 @@ tags: learning cpp algorithm
 
 <!--# <span style="color: blue;"></span>-->
 ## <span style="color: blue;">Recursively traverse a Binary Tree</span>
-In last post [BinaryTree_0]({% post_url 2024-09-08-Cpp_Binary_Tree_0.md %}), we have discussed the DFT and BFT for traversing a BT. For DFT, recursive way and iterative way can both fulfill our purpose.
+In last post [BinaryTree_0]({% post_url 2024-09-08-Cpp_Binary_Tree_0 %}), we have discussed the DFT and BFT for traversing a BT. For DFT, recursive way and iterative way can both fulfill our purpose.
 
 In this post, we will briefly introduce the recursive way for DFT.
 <!--more-->
