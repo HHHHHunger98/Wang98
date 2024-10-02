@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: false
+usekatex: false
 title: StackAndQueue
 date: 2023-06-13
 tags: algorithm csharp

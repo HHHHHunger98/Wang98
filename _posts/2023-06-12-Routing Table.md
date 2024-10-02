@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: false
+usekatex: false
 title: Routing Table
 date: 2023-06-12
 tags: network
