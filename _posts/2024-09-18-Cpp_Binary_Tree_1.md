@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: Cpp_Binary_Tree_1
 date: 2024-09-18
 tags: learning cpp algorithm

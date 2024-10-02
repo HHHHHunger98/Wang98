@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: LinQBasic
 date: 2023-06-07
 tags: csharp

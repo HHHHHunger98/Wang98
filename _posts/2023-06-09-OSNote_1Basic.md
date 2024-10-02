@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: OSNote_1Basic
 date: 2023-06-09
 tags: OS learning

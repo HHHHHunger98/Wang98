@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: CSharp_String&StringBuilder
 date: 2023-06-13
 tags: algorithm csharp

@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: NetworkControlSystem_CLC
 date: 2023-06-20
 tags: learning CLC

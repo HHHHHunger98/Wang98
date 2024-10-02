@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: Leetcode_Coding
 date: 2023-06-13
 tags: algorithm csharp cpp

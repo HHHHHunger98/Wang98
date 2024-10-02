@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: Cpp_fstream
 date: 2024-09-03
 tags: learning cpp

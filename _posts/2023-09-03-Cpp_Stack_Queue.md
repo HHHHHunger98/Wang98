@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: Cpp_Stack_Queue
 date: 2023-09-03
 tags: learning cpp algorithm

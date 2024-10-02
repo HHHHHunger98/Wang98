@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: EMovieProject
 date: 2023-06-07
 tags: csharp project

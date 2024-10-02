@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: Cpp_Map_Unordered_Map
 date: 2023-09-13
 tags: learning cpp algorithm

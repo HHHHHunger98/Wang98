@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: String_Problems
 date: 2023-06-13
 tags: algorithm csharp

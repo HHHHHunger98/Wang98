@@ -1,6 +1,6 @@
 ---
 layout: post
-usemathjax: true
+usemathjax: false
 title: LeetCode_Stack_Queue_Problem
 date: 2023-06-15
 tags: leetcode algorithm csharp learning cpp
