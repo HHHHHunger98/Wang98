@@ -94,4 +94,4 @@ This blog briefly discussed about:
 3. how to traverse a binary tree.
 
 The practical implementation of BT traversal will be discussed in 
-[BinaryTreeinC++(1.RecusiveTraversal)]({% post_url /Wang98/2024-09-18-Cpp_Binary_Tree_1 %})
+[BinaryTreeinC++(1.RecusiveTraversal)]({% link /Wang98/2024-09-18-Cpp_Binary_Tree_1.md %})
