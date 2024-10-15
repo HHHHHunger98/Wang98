@@ -15,7 +15,7 @@ link: <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.githu
 
 <a href="{{ post.url | prepend: site.baseurl }}">{{ post.url | prepend: site.baseurl }}</a>
 <a href="{{ post.url | prepend: site.baseurl }}">{{ post.url | prepend: site.baseurl }}</a>
-{% post_url | prepend: site.github.repository_name 2010-07-21-name-of-post %}
+{{ site.title | default: site.github.repository_name | 2010-07-21-name-of-post }}
 
 
 In last post, we have discussed the DFT and BFT for traversing a BT. For DFT, recursive way and iterative way can both fulfill our purpose.
