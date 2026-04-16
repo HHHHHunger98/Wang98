@@ -263,4 +263,3 @@ show running nat-policy
 show session all filter destination 8.8.8.8
 ```
 
-👉 我可以直接帮你判断是哪一步出了问题（基本 1 分钟定位）。
