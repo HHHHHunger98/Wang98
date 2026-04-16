@@ -13,5 +13,7 @@ This article is the learning note of CCNP course. This is showing how I become a
 <!--more-->
 ## <span style="color: blue;">How to be a network master</span>
 
+## <span style="color: blue;">OSI Model</span>
+
 
 
