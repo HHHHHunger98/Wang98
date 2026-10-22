@@ -14,7 +14,11 @@ link is: {{ post.url | prepend: site.baseurl | append: 2024-09-08-Cpp_Binary_Tre
 link: <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name | append: 2024-09-08-Cpp_Binary_Tree_0.md }}</a></h1>
 
 <a href="{{ post.url | prepend: site.baseurl }}">{{ post.url | prepend: site.baseurl }}</a>
+
+
 <a href="{{ post.url | prepend: site.baseurl }}">{{ post.url | prepend: site.baseurl }}</a>
+
+
 {{ site.title | default: site.github.repository_name | 2010-07-21-name-of-post }}
 
 
